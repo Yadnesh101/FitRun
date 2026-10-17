@@ -18,6 +18,7 @@ dist-ssr
 
 # Large binary files
 *.apk
+!public/FitRun.apk
 
 # Editor directories and files
 .vscode/*

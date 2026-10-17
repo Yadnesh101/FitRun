@@ -7,8 +7,9 @@ import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import {
-  Dumbbell, ChevronRight, Check, Play, TrendingUp,
+  Dumbbell, ChevronRight, Check, TrendingUp,
   ChevronDown, ArrowRight, Activity, Target,
+  Download, Smartphone, Apple, ShieldCheck, Sparkles,
 } from 'lucide-react';
 
 // ============================================================
@@ -44,11 +45,17 @@ function LandingNav() {
               {item}
             </a>
           ))}
+          <a href="#download" style={{ fontSize: 'var(--text-sm)', color: 'var(--clr-primary)', fontWeight: 600 }}>
+            Download App
+          </a>
         </div>
 
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+          <a href="/FitRun.apk" download="FitRun.apk" className="btn btn-primary btn-sm" id="nav-download-apk-btn" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+            <Download size={14} /> Download APK
+          </a>
           <Link to="/auth/login" className="btn btn-ghost btn-sm hide-mobile">Sign In</Link>
-          <Link to="/auth/signup" className="btn btn-primary btn-sm" id="nav-cta-btn">Start Free</Link>
+          <Link to="/auth/signup" className="btn btn-secondary btn-sm hide-mobile" id="nav-cta-btn">Web App</Link>
         </div>
       </div>
     </nav>
@@ -66,10 +73,10 @@ function Hero() {
       <div style={{ position: 'absolute', top: '10%', right: '-5%', width: '500px', height: '500px', background: 'radial-gradient(ellipse, rgba(232,160,32,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', bottom: '10%', left: '-5%', width: '400px', height: '400px', background: 'radial-gradient(ellipse, rgba(59,130,246,0.05) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
-      <div className="container" style={{ padding: '5rem 1.5rem' }}>
+      <div className="container" style={{ padding: '4.5rem 1.5rem 3rem' }}>
         <div className="hero-content animate-fade-in">
           <div className="hero-eyebrow">
-            <Dumbbell size={14} /> Built for men 40+
+            <Dumbbell size={14} /> Built for men 40+ • Android & Web App
           </div>
 
           <h1 className="hero-title">
@@ -86,16 +93,25 @@ function Hero() {
             better nutrition, and measurable progress — without the confusion.
           </p>
 
-          <div className="hero-ctas">
-            <Link to="/auth/signup" className="btn btn-primary btn-xl glow-on-hover" id="hero-primary-cta">
-              Start Your Fitness Journey <ArrowRight size={20} />
-            </Link>
-            <a href="#how-it-works" className="btn btn-secondary btn-lg">
-              <Play size={18} /> See How It Works
+          <div className="hero-ctas" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
+            <a href="/FitRun.apk" download="FitRun.apk" className="btn btn-primary btn-xl glow-on-hover" id="hero-download-apk-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
+              <Download size={22} /> Download Android App (.APK)
             </a>
+            <Link to="/auth/signup" className="btn btn-secondary btn-xl" id="hero-primary-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
+              <Smartphone size={20} /> Open Web / iOS App <ArrowRight size={18} />
+            </Link>
           </div>
 
-          <div className="hero-stats stagger">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', marginTop: '0.75rem', flexWrap: 'wrap' }}>
+            <span style={{ fontSize: 'var(--text-xs)', color: 'var(--clr-text-3)', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+              <ShieldCheck size={14} color="var(--clr-success)" /> Android APK: 7.8 MB (Direct Download)
+            </span>
+            <span style={{ fontSize: 'var(--text-xs)', color: 'var(--clr-text-3)', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+              <Sparkles size={14} color="var(--clr-primary)" /> Auto-updating • No Play Store required
+            </span>
+          </div>
+
+          <div className="hero-stats stagger" style={{ marginTop: '2.5rem' }}>
             {[
               { value: '40+', label: 'Exercises in library' },
               { value: '3', label: 'Structured programs' },
@@ -107,6 +123,156 @@ function Hero() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================
+// Download App Section
+// ============================================================
+
+function DownloadAppSection() {
+  return (
+    <section className="landing-section" id="download" style={{ background: 'var(--clr-bg-2)', borderTop: '1px solid var(--clr-border)', borderBottom: '1px solid var(--clr-border)' }}>
+      <div className="container">
+        <div className="landing-section-header" style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <span className="section-eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+            <Smartphone size={14} /> Install On Your Phone
+          </span>
+          <h2 className="section-headline">
+            Get Fit Midlife On Your Mobile Device
+          </h2>
+          <p className="section-subheadline" style={{ maxWidth: 640, margin: '0.75rem auto 0' }}>
+            Install the native app directly on your Android phone or add it to your iPhone home screen in seconds.
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', maxWidth: 960, margin: '0 auto' }}>
+          
+          {/* Android Card */}
+          <div style={{
+            background: 'linear-gradient(145deg, rgba(232,160,32,0.08) 0%, rgba(20,24,33,0.9) 100%)',
+            border: '2px solid rgba(232,160,32,0.35)',
+            borderRadius: 'var(--radius-2xl)',
+            padding: '2rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            boxShadow: '0 12px 36px rgba(0,0,0,0.4)',
+            position: 'relative',
+          }}>
+            <div style={{ position: 'absolute', top: -12, right: 24 }}>
+              <span className="badge badge-primary" style={{ padding: '0.35rem 0.85rem', fontSize: 'var(--text-xs)', fontWeight: 700 }}>
+                RECOMMENDED FOR ANDROID
+              </span>
+            </div>
+
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
+                <div style={{ width: 52, height: 52, background: 'var(--grad-primary)', borderRadius: 'var(--radius-xl)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Smartphone size={28} color="#0F1117" />
+                </div>
+                <div>
+                  <h3 style={{ fontSize: 'var(--text-xl)', fontWeight: 800, margin: 0 }}>Android Native App</h3>
+                  <div style={{ fontSize: 'var(--text-xs)', color: 'var(--clr-text-3)', marginTop: 2 }}>Direct APK • 7.8 MB • Android 8.0+</div>
+                </div>
+              </div>
+
+              <p style={{ color: 'var(--clr-text-2)', fontSize: 'var(--text-sm)', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+                Full native app experience with offline capability, live AI meal scanning, and instant over-the-air auto-updates.
+              </p>
+
+              <div style={{ background: 'rgba(0,0,0,0.3)', borderRadius: 'var(--radius-lg)', padding: '1rem', marginBottom: '1.75rem', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <div style={{ fontSize: 'var(--text-xs)', fontWeight: 700, color: 'var(--clr-primary)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.6rem' }}>
+                  Easy 3-Step Install:
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: 'var(--text-xs)', color: 'var(--clr-text-2)' }}>
+                  <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                    <span style={{ width: 18, height: 18, borderRadius: '50%', background: 'rgba(232,160,32,0.2)', color: 'var(--clr-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, flexShrink: 0, fontSize: 11 }}>1</span>
+                    <span>Tap <strong>Download APK</strong> button below.</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                    <span style={{ width: 18, height: 18, borderRadius: '50%', background: 'rgba(232,160,32,0.2)', color: 'var(--clr-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, flexShrink: 0, fontSize: 11 }}>2</span>
+                    <span>Open downloaded <code>FitRun.apk</code> & tap <strong>Install</strong>. (Allow <em>Install unknown apps</em> in Chrome if prompted).</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                    <span style={{ width: 18, height: 18, borderRadius: '50%', background: 'rgba(232,160,32,0.2)', color: 'var(--clr-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, flexShrink: 0, fontSize: 11 }}>3</span>
+                    <span>Launch Fit Midlife, log in, and you're all set!</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="/FitRun.apk"
+              download="FitRun.apk"
+              className="btn btn-primary btn-xl glow-on-hover"
+              id="download-android-apk-main-btn"
+              style={{ width: '100%', justifyContent: 'center', display: 'flex', alignItems: 'center', gap: '0.6rem' }}
+            >
+              <Download size={20} /> Download Android App (.APK)
+            </a>
+          </div>
+
+          {/* iPhone / iPad / Web Card */}
+          <div style={{
+            background: 'var(--clr-bg-3)',
+            border: '1px solid var(--clr-border)',
+            borderRadius: 'var(--radius-2xl)',
+            padding: '2rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            boxShadow: 'var(--shadow-lg)',
+          }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
+                <div style={{ width: 52, height: 52, background: 'rgba(255,255,255,0.08)', borderRadius: 'var(--radius-xl)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Apple size={28} color="#FFFFFF" />
+                </div>
+                <div>
+                  <h3 style={{ fontSize: 'var(--text-xl)', fontWeight: 800, margin: 0 }}>iPhone, iPad & Web</h3>
+                  <div style={{ fontSize: 'var(--text-xs)', color: 'var(--clr-text-3)', marginTop: 2 }}>Progressive Web App • Instant Access</div>
+                </div>
+              </div>
+
+              <p style={{ color: 'var(--clr-text-2)', fontSize: 'var(--text-sm)', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+                Run Fit Midlife as a full-screen standalone app directly on iOS or any desktop browser — zero installation or storage space needed.
+              </p>
+
+              <div style={{ background: 'rgba(0,0,0,0.2)', borderRadius: 'var(--radius-lg)', padding: '1rem', marginBottom: '1.75rem', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <div style={{ fontSize: 'var(--text-xs)', fontWeight: 700, color: 'var(--clr-info)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.6rem' }}>
+                  Add to iPhone Home Screen:
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: 'var(--text-xs)', color: 'var(--clr-text-2)' }}>
+                  <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                    <span style={{ width: 18, height: 18, borderRadius: '50%', background: 'rgba(59,130,246,0.2)', color: 'var(--clr-info)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, flexShrink: 0, fontSize: 11 }}>1</span>
+                    <span>Open <strong>fit-run-silk.vercel.app</strong> in Safari.</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                    <span style={{ width: 18, height: 18, borderRadius: '50%', background: 'rgba(59,130,246,0.2)', color: 'var(--clr-info)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, flexShrink: 0, fontSize: 11 }}>2</span>
+                    <span>Tap the <strong>Share</strong> button (box with arrow pointing up) at the bottom.</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                    <span style={{ width: 18, height: 18, borderRadius: '50%', background: 'rgba(59,130,246,0.2)', color: 'var(--clr-info)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, flexShrink: 0, fontSize: 11 }}>3</span>
+                    <span>Scroll down and tap <strong>"Add to Home Screen"</strong>.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <Link
+              to="/auth/signup"
+              className="btn btn-secondary btn-xl"
+              id="open-web-app-main-btn"
+              style={{ width: '100%', justifyContent: 'center', display: 'flex', alignItems: 'center', gap: '0.6rem' }}
+            >
+              Open Web App Now <ArrowRight size={18} />
+            </Link>
+          </div>
+
         </div>
       </div>
     </section>
@@ -508,13 +674,18 @@ function FinalCTA() {
           </span>
         </h2>
         <p style={{ color: 'var(--clr-text-2)', lineHeight: 1.8, marginBottom: '2.5rem', fontSize: 'var(--text-lg)' }}>
-          Join men who are getting stronger, leaner, and more energetic after 40. Start free today — no credit card required.
+          Join men who are getting stronger, leaner, and more energetic after 40. Download the native Android app or start free in your browser today.
         </p>
-        <Link to="/auth/signup" className="btn btn-primary btn-xl glow-on-hover" id="final-cta-btn">
-          Start Your Fitness Journey <ArrowRight size={22} />
-        </Link>
-        <p style={{ color: 'var(--clr-text-3)', fontSize: 'var(--text-sm)', marginTop: '1rem' }}>
-          Free to start · No credit card required
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <a href="/FitRun.apk" download="FitRun.apk" className="btn btn-primary btn-xl glow-on-hover" id="final-download-apk-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
+            <Download size={22} /> Download Android App (.APK)
+          </a>
+          <Link to="/auth/signup" className="btn btn-secondary btn-xl" id="final-cta-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
+            <Smartphone size={20} /> Open Web / iOS App <ArrowRight size={20} />
+          </Link>
+        </div>
+        <p style={{ color: 'var(--clr-text-3)', fontSize: 'var(--text-sm)', marginTop: '1.25rem' }}>
+          Free to start · Direct 7.8 MB APK · No credit card required
         </p>
       </div>
     </section>
@@ -583,6 +754,7 @@ export default function Landing() {
     <>
       <LandingNav />
       <Hero />
+      <DownloadAppSection />
       <WhySection />
       <HowItWorksSection />
       <WorkoutFeaturesSection />
