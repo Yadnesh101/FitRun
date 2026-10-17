@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import AppLayout from './components/layout/AppLayout';
+import { isNativeApp } from './lib/platform';
 
 import WarmupTimer from './pages/workouts/WarmupTimer';
 
@@ -65,6 +66,7 @@ function RootRoute() {
   const { loading, user } = useAuth();
   if (loading) return <LoadingScreen />;
   if (user) return <Navigate to="/dashboard" replace />;
+  if (isNativeApp()) return <Navigate to="/login" replace />;
   return <Landing />;
 }
 

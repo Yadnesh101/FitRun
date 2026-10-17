@@ -6,6 +6,7 @@
 import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { isNativeApp } from '../lib/platform';
 import {
   Dumbbell, ChevronRight, Check, TrendingUp,
   ChevronDown, ArrowRight, Activity, Target,
@@ -20,15 +21,15 @@ function LandingNav() {
   return (
     <nav style={{
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200,
-      padding: '1rem 1.5rem',
-      background: 'rgba(15,17,23,0.85)',
+      padding: '0.875rem 1.25rem',
+      background: 'rgba(15,17,23,0.92)',
       backdropFilter: 'blur(12px)',
       borderBottom: '1px solid rgba(255,255,255,0.06)',
     }}>
-      <div style={{ maxWidth: 'var(--content-max-w)', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div style={{ width: 38, height: 38, background: 'var(--grad-primary)', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Dumbbell size={20} color="#0F1117" />
+      <div style={{ maxWidth: 'var(--content-max-w)', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+          <div style={{ width: 36, height: 36, background: 'var(--grad-primary)', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <Dumbbell size={19} color="#0F1117" />
           </div>
           <div>
             <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'var(--text-lg)', letterSpacing: '0.04em', background: 'var(--grad-primary)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
@@ -37,7 +38,7 @@ function LandingNav() {
           </div>
         </div>
 
-        <div className="hide-mobile" style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+        <div className="hide-mobile" style={{ display: 'flex', alignItems: 'center', gap: '1.75rem' }}>
           {['How It Works', 'Workouts', 'Nutrition', 'Pricing'].map(item => (
             <a key={item} href={`#${item.toLowerCase().replace(/ /g, '-')}`} style={{ fontSize: 'var(--text-sm)', color: 'var(--clr-text-2)', fontWeight: 500, transition: 'color var(--transition-fast)' }}
               onMouseEnter={e => (e.currentTarget.style.color = 'var(--clr-text)')}
@@ -50,12 +51,16 @@ function LandingNav() {
           </a>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-          <a href="/FitRun.apk" download="FitRun.apk" className="btn btn-primary btn-sm" id="nav-download-apk-btn" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-            <Download size={14} /> Download APK
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          <a href="/FitRun.apk" download="FitRun.apk" className="btn btn-ghost btn-sm hide-mobile" id="nav-download-apk-btn" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', border: '1px solid rgba(232,160,32,0.3)', color: 'var(--clr-primary)' }}>
+            <Download size={14} /> APK (7.8 MB)
           </a>
-          <Link to="/auth/login" className="btn btn-ghost btn-sm hide-mobile">Sign In</Link>
-          <Link to="/auth/signup" className="btn btn-secondary btn-sm hide-mobile" id="nav-cta-btn">Web App</Link>
+          <Link to="/auth/login" className="btn btn-ghost btn-sm" id="nav-login-btn" style={{ padding: '0.45rem 0.75rem', fontSize: 'var(--text-sm)' }}>
+            Sign In
+          </Link>
+          <Link to="/auth/signup" className="btn btn-primary btn-sm" id="nav-cta-btn" style={{ padding: '0.45rem 0.85rem', fontSize: 'var(--text-sm)' }}>
+            Start Free
+          </Link>
         </div>
       </div>
     </nav>
@@ -93,16 +98,19 @@ function Hero() {
             better nutrition, and measurable progress — without the confusion.
           </p>
 
-          <div className="hero-ctas" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
-            <a href="/FitRun.apk" download="FitRun.apk" className="btn btn-primary btn-xl glow-on-hover" id="hero-download-apk-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
-              <Download size={22} /> Download Android App (.APK)
-            </a>
-            <Link to="/auth/signup" className="btn btn-secondary btn-xl" id="hero-primary-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
-              <Smartphone size={20} /> Open Web / iOS App <ArrowRight size={18} />
+          <div className="hero-ctas" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.875rem', alignItems: 'center' }}>
+            <Link to="/auth/signup" className="btn btn-primary btn-xl glow-on-hover" id="hero-primary-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
+              Start Free Journey <ArrowRight size={20} />
             </Link>
+            <Link to="/auth/login" className="btn btn-secondary btn-xl" id="hero-login-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
+              Sign In
+            </Link>
+            <a href="/FitRun.apk" download="FitRun.apk" className="btn btn-ghost btn-lg" id="hero-download-apk-cta" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', border: '1px solid rgba(232,160,32,0.4)', color: 'var(--clr-primary)', background: 'rgba(232,160,32,0.06)' }}>
+              <Download size={18} /> Download Android APK (7.8 MB)
+            </a>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', marginTop: '0.75rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', marginTop: '1rem', flexWrap: 'wrap' }}>
             <span style={{ fontSize: 'var(--text-xs)', color: 'var(--clr-text-3)', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
               <ShieldCheck size={14} color="var(--clr-success)" /> Android APK: 7.8 MB (Direct Download)
             </span>
@@ -748,6 +756,9 @@ export default function Landing() {
   const { user } = useAuth();
   if (user) {
     return <Navigate to="/dashboard" replace />;
+  }
+  if (isNativeApp()) {
+    return <Navigate to="/login" replace />;
   }
 
   return (
