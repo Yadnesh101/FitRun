@@ -5,6 +5,8 @@ const config: CapacitorConfig = {
   appName: 'FitRun',
   webDir: 'dist',
   server: {
+    url: 'https://fit-run-silk.vercel.app',
+    cleartext: true,
     androidScheme: 'https'
   }
 };
