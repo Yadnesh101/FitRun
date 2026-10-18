@@ -399,10 +399,39 @@ export default function WorkoutPlayer() {
       </div>
 
       <div className="card" style={{ padding: '1.25rem 1rem', width: '100%', boxSizing: 'border-box' }}>
-        {/* Exercise image */}
-        <div style={{ height: 160, background: 'var(--clr-bg-3)', borderRadius: 'var(--radius-lg)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem', fontSize: '3.5rem' }}>
-          💪
-        </div>
+        {/* Exercise Video / Demonstration */}
+        {currentExercise.exercise?.video_url ? (
+          <div style={{
+            marginBottom: '1.25rem',
+            borderRadius: 'var(--radius-lg)',
+            overflow: 'hidden',
+            background: '#0F1117',
+            border: '1px solid rgba(232,160,32,0.3)',
+            boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
+            position: 'relative',
+          }}>
+            <video
+              src={currentExercise.exercise.video_url}
+              autoPlay
+              loop
+              muted
+              playsInline
+              controls
+              style={{
+                width: '100%',
+                maxHeight: '260px',
+                objectFit: 'contain',
+                display: 'block',
+                margin: '0 auto',
+                background: '#000',
+              }}
+            />
+          </div>
+        ) : (
+          <div style={{ height: 160, background: 'var(--clr-bg-3)', borderRadius: 'var(--radius-lg)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem', fontSize: '3.5rem' }}>
+            💪
+          </div>
+        )}
 
         <h2 style={{ fontSize: 'var(--text-2xl)', fontWeight: 900, marginBottom: '0.25rem' }}>
           {currentExercise.exercise?.name}

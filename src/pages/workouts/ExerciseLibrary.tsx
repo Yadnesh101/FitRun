@@ -1,7 +1,7 @@
 // src/pages/workouts/ExerciseLibrary.tsx
 
 import { useState, useMemo } from 'react';
-import { Search, X } from 'lucide-react';
+import { Search, X, Video } from 'lucide-react';
 import DEMO_EXERCISES from '../../data/exercises';
 import { LEVEL_LABELS, EQUIPMENT_LABELS, titleCase } from '../../lib/utils';
 import type { ExerciseCategory, FitnessLevel } from '../../types';
@@ -52,13 +52,51 @@ function ExerciseDetailModal({ exercise, onClose }: { exercise: any; onClose: ()
           </button>
         </div>
 
-        {/* Image placeholder */}
-        <div className="exercise-image-placeholder" style={{ marginBottom: '1.5rem', borderRadius: 'var(--radius-lg)' }}>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>💪</div>
-            <div style={{ fontSize: 'var(--text-sm)', color: 'var(--clr-text-3)' }}>Exercise demonstration</div>
+        {/* Video demonstration or placeholder */}
+        {exercise.video_url ? (
+          <div style={{
+            marginBottom: '1.5rem',
+            borderRadius: 'var(--radius-xl)',
+            overflow: 'hidden',
+            background: '#0F1117',
+            border: '1px solid rgba(232,160,32,0.3)',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+            position: 'relative',
+          }}>
+            <video
+              src={exercise.video_url}
+              controls
+              autoPlay
+              loop
+              muted
+              playsInline
+              style={{
+                width: '100%',
+                maxHeight: '340px',
+                objectFit: 'contain',
+                display: 'block',
+                background: '#000',
+              }}
+            />
+            <div style={{
+              position: 'absolute', top: 12, right: 12,
+              background: 'rgba(15,17,23,0.85)', backdropFilter: 'blur(6px)',
+              color: 'var(--clr-primary)', padding: '0.25rem 0.6rem',
+              borderRadius: 'var(--radius-sm)', fontSize: '11px', fontWeight: 800,
+              letterSpacing: '0.04em', border: '1px solid rgba(232,160,32,0.4)',
+              pointerEvents: 'none', display: 'flex', alignItems: 'center', gap: '0.35rem',
+            }}>
+              <Video size={13} /> FORM DEMO
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="exercise-image-placeholder" style={{ marginBottom: '1.5rem', borderRadius: 'var(--radius-lg)' }}>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>💪</div>
+              <div style={{ fontSize: 'var(--text-sm)', color: 'var(--clr-text-3)' }}>Exercise demonstration</div>
+            </div>
+          </div>
+        )}
 
         {/* Stats */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', marginBottom: '1.5rem' }}>
@@ -224,9 +262,14 @@ export default function ExerciseLibrary() {
               </div>
 
               <div style={{ fontWeight: 700, marginBottom: '0.375rem' }}>{exercise.name}</div>
-              <div style={{ display: 'flex', gap: '0.375rem', flexWrap: 'wrap', marginBottom: '0.625rem' }}>
+              <div style={{ display: 'flex', gap: '0.375rem', flexWrap: 'wrap', marginBottom: '0.625rem', alignItems: 'center' }}>
                 <span className="badge badge-neutral" style={{ fontSize: '10px' }}>{titleCase(exercise.category)}</span>
                 <span className="badge" style={{ fontSize: '10px', color: DIFFICULTY_COLORS[exercise.difficulty] }}>{LEVEL_LABELS[exercise.difficulty]}</span>
+                {exercise.video_url && (
+                  <span className="badge badge-primary" style={{ fontSize: '10px', display: 'inline-flex', alignItems: 'center', gap: '3px', padding: '0.15rem 0.45rem' }}>
+                    <Video size={10} /> Video
+                  </span>
+                )}
               </div>
               <div style={{ fontSize: 'var(--text-xs)', color: 'var(--clr-text-3)' }}>
                 {exercise.default_sets} sets × {exercise.default_reps} reps
